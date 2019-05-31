@@ -1,11 +1,14 @@
 `curl 'https://docs.google.com/spreadsheets/d/1rgUTX_90dFgdIWYj5lfooY2q8WEZfxmD6D78DsB6sew/export?exportFormat=csv' > glicose.csv`
 
-set terminal pngcairo size 12000,2000 enhanced background rgb "#ffffff" font 'Arial,16'
+set terminal pngcairo size 30000,1000 enhanced background rgb "#ffffff" font 'Arial,16'
 
 set output 'glicose.png'
 set timefmt '%Y-%m-%d %H:%M'
-set format x "%d-%m\n%H:%M"
+set xtics timedate
 set xdata time
+set xrange ["2019-03-12 00:00":"2019-06-01 00:00"]
+set xtics "2019-03-12 00:00",86400,"2019-06-01 00:00"
+set format x "%b %d"
 set datafile separator ","
 set xlabel "Date Time"
 set ylabel "Glicose Level"
@@ -17,6 +20,6 @@ set style line 1 \
     pointtype 7 pointsize 1.5
 
 plot 'glicose.csv' using 1:2 with linespoints linestyle 1, \
-    'glicose.csv' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
+     'glicose.csv' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
 
 `rm glicose.csv`

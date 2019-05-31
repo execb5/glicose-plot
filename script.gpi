@@ -1,3 +1,5 @@
+#! /usr/bin/env gnuplot
+
 `curl 'https://docs.google.com/spreadsheets/d/1rgUTX_90dFgdIWYj5lfooY2q8WEZfxmD6D78DsB6sew/export?exportFormat=csv' > glicose.csv`
 
 set terminal pngcairo size 30000,1000 enhanced background rgb "#ffffff" font 'Arial,16'

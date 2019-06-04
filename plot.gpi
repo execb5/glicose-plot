@@ -16,7 +16,7 @@ set xtics "2019-03-12 00:00",86400,"2019-06-04 00:00"
 set format x "%b %d"
 set datafile separator ","
 set xlabel "Date Time"
-set ylabel "Glicose Level"
+set ylabel "Glucose Level"
 set grid
 
 set style line 1 \

@@ -8,8 +8,8 @@ set output 'glicose.png'
 set timefmt '%Y-%m-%d %H:%M'
 set xtics timedate
 set xdata time
-set xrange ["2019-03-12 00:00":"2019-06-01 00:00"]
-set xtics "2019-03-12 00:00",86400,"2019-06-01 00:00"
+set xrange ["2019-03-12 00:00":"`date '+%Y-%m-%d %H:%M:%S'`"]
+set xtics "2019-03-12 00:00",86400,"2019-06-04 00:00"
 set format x "%b %d"
 set datafile separator ","
 set xlabel "Date Time"

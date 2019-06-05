@@ -4,6 +4,10 @@
 
 upperbound = 120
 lowerbound = 80
+two_days_ago = "`date '+%Y-%m-%d' --date='2 days ago'` 00:00"
+tomorrow = "`date '+%Y-%m-%d' --date='tomorrow'` 00:00"
+first_date = "2019-03-12 00:00"
+now = "`date '+%Y-%m-%d %H:%M:%S'`"
 
 set terminal pngcairo size 30000,1000 enhanced background rgb "#ffffff" font 'Arial,16'
 
@@ -11,8 +15,8 @@ set output 'all_time.png'
 set timefmt '%Y-%m-%d %H:%M'
 set xtics timedate
 set xdata time
-set xrange ["2019-03-12 00:00":"`date '+%Y-%m-%d %H:%M:%S'`"]
-set xtics "2019-03-12 00:00",86400,"2019-06-04 00:00"
+set xrange [first_date:now]
+set xtics first_date,86400,now
 set format x "%b %d"
 set datafile separator ","
 set xlabel "Date Time"
@@ -25,17 +29,14 @@ set style line 1 \
     pointtype 7 pointsize 1.5
 
 plot 'glicose.csv' using 1:2:(upperbound) with filledcurves above lt rgb "#e5d229" title "hyperglycemia", \
-     'glicose.csv' using 1:2:(lowerbound) with filledcurves below lt rgb "#ce0048" title "hypoglycemia", \
-     'glicose.csv' using 1:2 with linespoints linestyle 1 title "glucose level", \
-     'glicose.csv' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
+                '' using 1:2:(lowerbound) with filledcurves below lt rgb "#ce0048" title "hypoglycemia", \
+                '' using 1:2 with linespoints linestyle 1 title "glucose level", \
+                '' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
 
 set output '3_days_from_next_midnight.png'
 set terminal pngcairo size 1920,1080 enhanced background rgb "#ffffff" font 'Arial,16'
-set xrange ["`date '+%Y-%m-%d' --date='2 days ago'` 00:00":"`date '+%Y-%m-%d' --date='tomorrow'` 00:00"]
+set xrange [two_days_ago:tomorrow]
 
-plot 'glicose.csv' using 1:2:(upperbound) with filledcurves above lt rgb "#e5d229" title "hyperglycemia", \
-     'glicose.csv' using 1:2:(lowerbound) with filledcurves below lt rgb "#ce0048" title "hypoglycemia", \
-     'glicose.csv' using 1:2 with linespoints linestyle 1 title "glucose level", \
-     'glicose.csv' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
+replot
 
 `rm glicose.csv`

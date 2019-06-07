@@ -1,6 +1,6 @@
 #! /usr/bin/env gnuplot
 
-`curl 'https://docs.google.com/spreadsheets/d/1rgUTX_90dFgdIWYj5lfooY2q8WEZfxmD6D78DsB6sew/export?exportFormat=csv' > glicose.csv`
+`curl 'https://docs.google.com/spreadsheets/d/1rgUTX_90dFgdIWYj5lfooY2q8WEZfxmD6D78DsB6sew/export?exportFormat=csv' > glucose.csv`
 
 upperbound = 120
 lowerbound = 80
@@ -11,7 +11,7 @@ now = "`date '+%Y-%m-%d %H:%M:%S'`"
 
 set terminal pngcairo size 30000,1000 enhanced background rgb "#ffffff" font 'Arial,16'
 
-set title 'Glicose Levels - All time'
+set title 'Glucose Levels - All time'
 set output 'all_time.png'
 set timefmt '%Y-%m-%d %H:%M'
 set xdata time
@@ -28,16 +28,16 @@ set style line 1 \
     linetype 1 linewidth 2 \
     pointtype 7 pointsize 1.5
 
-plot 'glicose.csv' using 1:2:(upperbound) with filledcurves above lt rgb "#e5d229" title "hyperglycemia", \
+plot 'glucose.csv' using 1:2:(upperbound) with filledcurves above lt rgb "#e5d229" title "hyperglycemia", \
                 '' using 1:2:(lowerbound) with filledcurves below lt rgb "#ce0048" title "hypoglycemia", \
                 '' using 1:2 with linespoints linestyle 1 title "glucose level", \
                 '' using 1:2:(sprintf("%d", $2)) with labels point pt 7 offset char 1,1 notitle
 
-set title 'Glicose Levels - Last 3 days'
+set title 'Glucose Levels - Last 3 days'
 set output '3_days_from_next_midnight.png'
 set terminal pngcairo size 1920,1080 enhanced background rgb "#ffffff" font 'Arial,16'
 set xrange [two_days_ago:tomorrow]
 
 replot
 
-`rm glicose.csv`
+`rm glucose.csv`

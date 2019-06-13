@@ -17,6 +17,7 @@ set timefmt '%Y-%m-%d %H:%M'
 set xdata time
 set xtics timedate
 set xtics first_date,86400,now
+set xrange [first_date:tomorrow]
 set format x "%b %d"
 set datafile separator ","
 set xlabel "Date Time"
